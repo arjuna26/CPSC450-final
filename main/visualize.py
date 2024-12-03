@@ -10,6 +10,6 @@ def visualize_graph(G, subgraph_mapping=None):
     plt.show()
     
 if __name__ == "__main__":
-    G = nx.fast_gnp_random_graph(100, 0.5)  # Large random graph
+    G = nx.fast_gnp_random_graph(20, 0.5)  # Large random graph
     
     visualize_graph(G)
