@@ -2,3 +2,5 @@
 /main/test/__pycache__/
 /venv/
 /venv
+/main/test/.pytest_cache/
+/main/test/performance_results.json
