@@ -7,6 +7,9 @@ def bonnici_giugno_subgraph_isomorphism(G, H):
     Returns:
         A mapping of nodes if an isomorphism exists, else None.
     """
+    if len(H.nodes) > len(G.nodes) or len(H.nodes) == 0 or len(G.nodes) == 0:
+        return {}
+
     def greatest_constraint_first(pattern_graph):
         """
         Orders the vertices of the pattern graph based on constraints.
@@ -51,9 +54,6 @@ def bonnici_giugno_subgraph_isomorphism(G, H):
                     return result
                 matched_vertices.remove(candidate)
                 del mapping[pattern_vertex]
-        return None
-
-    if len(H.nodes) > len(G.nodes):
         return None
 
     ordered_pattern = greatest_constraint_first(H)
