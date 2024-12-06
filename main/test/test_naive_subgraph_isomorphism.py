@@ -226,15 +226,3 @@ def test_partial_graph_isomorphism():
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
-    
-    
-# def test_large_non_isomorphic_subgraph():
-#     # Larger graph G
-#     G = nx.fast_gnp_random_graph(15, 0.4, seed=42)  # Random graph with 20 nodes
-    
-#     # Smaller graph H (not a subgraph of G)
-#     H = nx.complete_graph(10)  # A fully connected graph with 10 nodes
-    
-#     # Expected: No isomorphism exists
-#     mapping = naive_subgraph_isomorphism(G, H)
-#     assert mapping is None
