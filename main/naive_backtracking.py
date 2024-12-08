@@ -1,5 +1,3 @@
-import networkx as nx
-
 def naive_subgraph_isomorphism(G, H):
     """
     Checks if graph H is isomorphic to any subgraph of G using a naive backtracking approach.

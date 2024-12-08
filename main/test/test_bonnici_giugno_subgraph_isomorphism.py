@@ -6,15 +6,15 @@ import sys
 # Add the parent directory to sys.path, import the algorithm to be tested
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from naive_backtracking import naive_subgraph_isomorphism
-
+from bonnici_giugno import bonnici_giugno_subgraph_isomorphism
+    
 def test_empty_graphs():
     # Both G and H are empty
     G = nx.Graph()
     H = nx.Graph()
 
     # Expected: Trivial isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping == {}
 
 def test_empty_subgraph():
@@ -23,7 +23,7 @@ def test_empty_subgraph():
     H = nx.Graph()
 
     # Expected: Trivial isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping == {}
 
 def test_simple_isomorphism():
@@ -36,7 +36,7 @@ def test_simple_isomorphism():
     H.add_edges_from([(1, 2), (2, 3)])
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -51,7 +51,7 @@ def test_no_isomorphism():
     H.add_edges_from([(1, 2), (2, 3), (3, 1)])
     
     # Expected: No isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is None
 
 def test_single_node_subgraph():
@@ -61,7 +61,7 @@ def test_single_node_subgraph():
     H.add_node(0)
 
     # Expected: Isomorphism exists (any single node in G)
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert len(mapping) == 1
     assert 0 in mapping
@@ -76,7 +76,7 @@ def test_identical_graphs():
     H.add_edges_from([(1, 2), (2, 3), (3, 1)])
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert len(mapping) == len(H.nodes)
     
@@ -90,7 +90,7 @@ def test_partial_overlap():
     H.add_edges_from([(1, 2), (2, 3), (3, 1)])
     
     # Expected: No isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is None
     
 def test_disconnected_subgraph():
@@ -103,7 +103,7 @@ def test_disconnected_subgraph():
     H.add_edges_from([(1, 2), (5, 6)])
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -114,7 +114,7 @@ def test_large_isomorphic_subgraph():
     H = G.subgraph(list(G.nodes)[:10]).copy()  # Extract a subgraph with 10 nodes
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -132,7 +132,7 @@ def test_multiple_possible_mappings():
     H.add_edges_from([(1, 2), (2, 3), (3, 1)])
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -151,7 +151,7 @@ def test_disconnected_large_graph():
     H.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 1)])
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -164,7 +164,7 @@ def test_large_complete_graph():
     H = nx.complete_graph(5)
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -176,7 +176,7 @@ def test_no_matching_edges():
     H.add_edges_from([(0, 1), (1, 2), (2, 0)])  # A triangle
 
     # Expected: No isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is None
 
 def test_large_disjoint_graphs():
@@ -193,7 +193,7 @@ def test_large_disjoint_graphs():
     H.add_edges_from([(0, 1), (1, 2), (2, 0)])
 
     # Expected: Isomorphism exists for the triangle in G
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())
@@ -204,7 +204,7 @@ def test_isomorphic_to_self():
     H = nx.complete_graph(7)
 
     # Expected: Isomorphism exists (identity mapping)
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert mapping == {u: u for u in H.nodes}
@@ -222,7 +222,7 @@ def test_partial_graph_isomorphism():
     H.add_edges_from([(0, 1), (1, 2)])  # A smaller path
     
     # Expected: Isomorphism exists
-    mapping = naive_subgraph_isomorphism(G, H)
+    mapping = bonnici_giugno_subgraph_isomorphism(G, H)
     assert mapping is not None
     assert set(H.nodes) == set(mapping.keys())
     assert set(G.nodes).issuperset(mapping.values())

@@ -1,0 +1,6 @@
+/main/__pycache__/
+/main/.pytest_cache/
+/main/test/__pycache__/
+/main/test/.pytest_cache/
+performance_results/
+/venv/
